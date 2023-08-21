@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="menu_home" model="website.menu">
+            <field name="name">Create Recruitment</field>
+            <field name="url">/recruitment/form</field>
+<!--            <field name="page_id" ref="website.homepage_page"/>-->
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">10</field>
+     </record>
+
+
+
+    <template id="create_recruit_web_form" name="Create Recruitment">
+          <t t-call="website.layout">
+                <div id="wrap" class="oe_structure">
+                    <div class="container">
+                        <form role="form" action="/create/recruitment" method="post">
+
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="form-group">
+                                <label for="name" class="control-label">Applicant Name</label>
+                                <input type="text" name="name" id="name" t-att-value="name" class="form-control" required="required" />
+                            </div>
+                             <button type="submit" class="btn btn-primary">Create</button>
+
+
+                    </form>
+                    </div>
+
+                </div>
+            </t>
+
+    </template>
+
+
+    <record id="recruit_thanks" model="website.page">
+        <field name="name">Thanks</field>
+        <field name="type">qweb</field>
+        <field name="url">/recruit-thank-you</field>
+        <field name="website_published">True</field>
+        <field name="key">web_hr_recruit.recruit_thanks</field>
+        <field name="arch" type="xml">
+            <t name="Thanks" t-name="web_hr_recruit.recruit_thanks">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="container">
+                            <h1>Thanks</h1>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="alert alert-success" role="states">
+                                        Your application successful!!
+
+                                    </div>
+                                    <p>
+                                        We will get back to you shortly
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </t>
+
+            </t>
+        </field>
+
+    </record>
+
+     <template id="htl_bookings">
+         <t t-call="website.layout">
+            <title>My Subjects</title>
+            <t t-foreach="bookings" t-as="booking">
+                <p><t t-esc="booking.name"/></p>
+            </t>
+         </t>
+    </template>
+
+</odoo>
